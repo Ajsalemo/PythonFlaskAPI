@@ -1,0 +1,16 @@
+body {
+    background-color: #000;
+    margin: 0;
+}
+
+.home-div {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-font {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+}
