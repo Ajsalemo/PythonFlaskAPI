@@ -2,7 +2,7 @@
 # Simple migration script to save some keystrokes
 
 # Initialize the database(if needed)
-# flask db init
+flask db init
 
 # Run migrations
 flask db migrate

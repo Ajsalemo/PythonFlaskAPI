@@ -1,0 +1,25 @@
+﻿id,Body,Displacement,Engine_Type,Image,Model,Power,Production,Production_Number,Type
+1,Coupe,3.5-litre,l6,,M1,273 hp,1978-1981,453,E26
+2,Sedan with 4 doors,3.5-litre,l6,,M535i,215 hp,1980-1984,"1,410",E12
+3,Coupe,3.5-litre,l6,,M 635 CSi,256 hp to 282 hp,1984-1989,"5,859",E24
+4,Sedan with 4 doors,3.5-litre,l6,,M535i,182 hp to 214 hp,1985-1988,"9,483",E28
+5,Sedan with 4 doors,3.5-litre,l6,,M5,281 hp,1985-1988,"2,191",E28
+6,"Coupe, Convertible",2.3-litre and 2.5-litre; 2.5-litre,l4,,M3,191 hp to 234 hp,1986-1991,"17,184 (Coupe); 786 (Convertible)",E30
+7,Sedan with 4 doors; Station wagon (since 1992),3.6-litre 3.8-litre,l6,,M5,311 hp to 335 hp,1988-1995,"11,336 (Sedan); 891 (Station wagon)",E34
+8,Coupe,6.0-litre,V12,,M8,549 hp,1990,1 prototype,E31
+9,Sedan with 4 doors; Coupe; Convertible,3.0-litre,l6,,M3,240 hp to 316 hp,1992-1999,"71,242",E36
+10,Roadster; Coupe,3.2-litre,l6,,M Roadster and M Coupe,240 hp to 316 hp,1996-2002,"6,318 (Coupe); 15,375 (Roadster)",E36/7; E36/8
+11,Sedan with 4 doors,5.0-litre,V8,,M5,394 hp,1998-2003,"20,482",E39
+12,Coupe; Convertible,3.2-litre; 4.0-litre (GTR),l6; V8,,M3,337 hp to 374 hp,2000-2006,"85,744",E46
+13,Sedan with 4 doors; Station wagon (since 2007),5.0-litre,V10,,M5,500 hp,2005-2010,"19,522 (Sedan); 1,025 (Station wagon)",E60; E61
+14,Coupe; Convertible (since 2006),5.0-litre,V10,,M6,500 hp,2005-2010,"9,087 (Coupe); 5,065 (Convertible)",E63; E64
+15,Roadster; Coupe,3.2-litre,l6,,Z4 M Roadster and Z4 M Coupe,337 hp,2006-2008,"4,275 (Coupé); 5,070 (Roadster)",E85; E86
+16,Sedan with 4 doors; Coupe; Convertible,4.0-litre; 4.4-litre (CRT & GTS),V8,,M3,414 hp to 443 hp,2007-2013,"9,606 + 68 M3 CRT (Sedan); 39,954 + 138 M3 GTS (Coupé); 16,219 (Convertible)",E90; E92; E93
+17,Coupe,3.0-litre,l6,,1M Coupe,335 hp,2011-2012,"6,342",E82
+18,SAV,4.4-litre,V8,,X5 M,547 hp,2009-2013,"8,974",E70
+19,SAV,4.4-litre,V8,,X6 M,547 hp,2009-2014,"10,678",E71
+20,Sedan with 4 doors,4.4-litre,V8,,M5,552 hp to 591 hp,2011-2016,"19,533",F10
+21,Sedan with 4 doors; Coupe; Convertible,4.4-litre,V8,,M6,552 hp to 591 hp,2012-2018,"6,719 (Sedan with 4 doors); 4,515 (Coupe); 4,318 (Convertible)",F06/F12/F13
+22,SAV,4.4-litre,V8,,X5 M,567 hp,2013-2018,"12,915",F85
+23,Sedan with 4 doors,3.0-litre,l6,,M3,425 to 453 hp,2014-2018,"33,414 + 1,263 M3 CS",F80
+24,SAV,4.4-litre,V8,,X6 M,567 hp,2014-2019,"9,794",F86
