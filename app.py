@@ -5,7 +5,7 @@ from models import BMWCarModel, db
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ajsalemo:Dudebug1992@localhost:5432/bmw_database"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://<username>:<password>@<host>:5432/<database>"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
