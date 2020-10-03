@@ -1,12 +1,24 @@
 from flask import Flask, jsonify, render_template
+from dotenv import load_dotenv
 from flask import json
 from flask_migrate import Migrate
-
 from models import BMWCarModel, db
+
+# Load dotenv
+load_dotenv()
+
+import os
+
+# Environment variables
+POSTGRES_USERNAME = os.getenv('POSTGRES_USERNAME')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_HOST = os.getenv('POSTGRES_HOST')
+POSTGRES_PORT = os.getenv('POSTGRES_PORT')
+POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ajsalemo:Dudebug1992@localhost:5432/bmw_database"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
