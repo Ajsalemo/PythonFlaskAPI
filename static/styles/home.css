@@ -14,3 +14,19 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #fff;
 }
+
+.m-letters {
+  margin-right: -0.45rem;
+}
+
+.m-letter-one {
+  color: lightblue;
+}
+
+.m-letter-two {
+  color: darkblue;
+}
+
+.m-letter-three {
+  color: red;
+}

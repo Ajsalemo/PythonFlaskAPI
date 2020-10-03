@@ -1,11 +1,12 @@
 from flask import Flask, jsonify, render_template
+from flask import json
 from flask_migrate import Migrate
 
 from models import BMWCarModel, db
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://<username>:<password>@<host>:5432/<database>"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ajsalemo:Dudebug1992@localhost:5432/bmw_database"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -18,7 +19,8 @@ def home():
 
 
 # v1 API routes
-@app.route('/api/v1/test_endpoint/all')
+# Return all columns an assiociated information for the stored cars in Postgres
+@app.route('/api/v1/cars/all')
 def test_endpoint():
     all_results = BMWCarModel.query.all()
     results = [
@@ -34,3 +36,32 @@ def test_endpoint():
             "Production_Number": result.Production_Number
         } for result in all_results]
     return jsonify({"all_cars": results})
+
+
+# Return all models wih their production year
+# Format ex. - "2000-2006 M3"
+@app.route('/api/v1/cars/all_models')
+def all_models():
+    all_models = BMWCarModel.query.all()
+    all_models_array = []
+    for m in all_models:
+        all_models_array.append(f"{m.Production} {m.Model}")
+    return jsonify({ "all_models": all_models_array })
+
+
+# Return all generational types
+# Format ex - "E46"
+@app.route('/api/v1/cars/model_types')
+def all_model_types():
+    all_model_types = BMWCarModel.query.all()
+    all_model_type_array = []
+    for t in all_model_types:
+        all_model_type_array.append(t.Type)
+    return jsonify({ "all_models": all_model_type_array })
+
+
+# TODO
+# Return all models based on the parameter passed
+@app.route('/api/v1/cars/model/<model>')
+def get_model(model):
+    return jsonify({ "model": model })

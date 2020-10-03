@@ -17,7 +17,17 @@ class BMWCarModel(db.Model):
     Production_Number = db.Column(db.String)
     Image = db.Column(db.String)
 
-    def __init__(self, Production, Model, Type, Displacement, Engine_Type, Power, Body, Production_Number, Image):
+    def __init__(
+        self,
+        Production,
+        Model, Type,
+        Displacement,
+        Engine_Type,
+        Power,
+        Body,
+        Production_Number,
+        Image
+    ):
         self.id = id
         self.Production = Production
         self.Model = Model
