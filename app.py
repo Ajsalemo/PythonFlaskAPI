@@ -1,13 +1,14 @@
-from flask import Flask, jsonify, render_template
+import os
+
 from dotenv import load_dotenv
-from flask import json
+from flask import Flask, jsonify, render_template
 from flask_migrate import Migrate
+
 from models import BMWCarModel, db
 
 # Load dotenv
 load_dotenv()
 
-import os
 
 # Environment variables
 POSTGRES_USERNAME = os.getenv('POSTGRES_USERNAME')
@@ -23,6 +24,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
+
+# Fields to be used for querying specific Models
+model_fields = ['Production', 'Model', 'Type', 'Displacement',
+                'Engine_Type', 'Power', 'Body', 'Production_Number']
 
 
 @app.route('/')
@@ -58,7 +63,7 @@ def all_models():
     all_models_array = []
     for m in all_models:
         all_models_array.append(f"{m.Production} {m.Model}")
-    return jsonify({ "all_models": all_models_array })
+    return jsonify({"all_models": all_models_array})
 
 
 # Return all generational types
@@ -69,11 +74,23 @@ def all_model_types():
     all_model_type_array = []
     for t in all_model_types:
         all_model_type_array.append(t.Type)
-    return jsonify({ "all_models": all_model_type_array })
+    return jsonify({"all_models": all_model_type_array})
 
 
-# TODO
+# TODO - Add a try/except block
 # Return all models based on the parameter passed
-@app.route('/api/v1/cars/model/<model>')
+@app.route('/api/v1/cars/<model>')
 def get_model(model):
-    return jsonify({ "model": model })
+    specific_model = BMWCarModel.query.filter_by(Model=model).all()
+    specific_model_array = [
+        {
+            "Year": m.Production,
+            "Model": m.Model,
+            "Type": m.Type,
+            "Engine_Type": m.Engine_Type,
+            "Power": m.Power,
+            "Body": m.Body,
+            "Production_Number": m.Production_Number
+        } for m in specific_model
+    ]
+    return jsonify({ "model": specific_model_array })
