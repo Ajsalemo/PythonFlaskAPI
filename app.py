@@ -25,10 +25,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Fields to be used for querying specific Models
-model_fields = ['Production', 'Model', 'Type', 'Displacement',
-                'Engine_Type', 'Power', 'Body', 'Production_Number']
-
 
 @app.route('/')
 def home():
@@ -114,6 +110,26 @@ def get_type(gen_type):
         } for t in specific_type
     ]
     return jsonify({ "type": specific_type_array })
+
+
+# Return all models based on the ID parameter
+@app.route('/api/v1/cars/<int:id>')
+def get_car_by_id(id):
+    specific_id = BMWCarModel.query.filter_by(id=id).all()
+    specific_id_array = [
+        {
+            "id": i.id,
+            "Year": i.Production,
+            "Model": i.Model,
+            "Type": i.Type,
+            "Engine_Type": i.Engine_Type,
+            "Power": i.Power,
+            "Body": i.Body,
+            "Production_Number": i.Production_Number
+        } for i in specific_id
+    ]
+    return jsonify({ "response": specific_id_array })
+
 
 
 # Error handlers
