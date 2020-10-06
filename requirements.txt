@@ -11,4 +11,8 @@
 ################################################################################
 
 flask
+flask-migrate
+flask-sqlalchemy
 pipenv-to-requirements
+psycopg2-binary
+python-dotenv
