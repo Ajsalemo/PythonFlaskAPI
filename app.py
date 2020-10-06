@@ -136,12 +136,24 @@ def get_car_by_id(id):
 # Return a JSON response for a HTTP 404
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify({ "message": "The requested resource does not exist." }), 404
+    return jsonify({ "error": "The requested resource does not exist." }), 404
+
+# Error handlers
+# Return a JSON response for a HTTP 500
+@app.errorhandler(500)
+def not_found(error):
+    return jsonify({ "error": "An application error occurred." }), 500
 
 
 # Error handlers
 # Return a JSON response for a HTTP 502
 @app.errorhandler(502)
 def not_found(error):
-    return jsonify({ "message": "Bad Gateway." }), 502
+    return jsonify({ "error": "Bad Gateway." }), 502
 
+
+# Error handlers
+# Return a JSON response for a HTTP 504
+@app.errorhandler(504)
+def not_found(error):
+    return jsonify({ "error": "A Gateway timeout has occurred." }), 504
