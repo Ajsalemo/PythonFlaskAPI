@@ -19,14 +19,14 @@ body {
   margin-right: -0.45rem;
 }
 
-.m-letter-one {
+#m-letter-one {
   color: lightblue !important;
 }
 
-.m-letter-two {
+#m-letter-two {
   color: darkblue !important;
 }
 
-.m-letter-three {
+#m-letter-three {
   color: red !important;
 }
