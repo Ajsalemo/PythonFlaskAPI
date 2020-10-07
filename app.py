@@ -25,8 +25,9 @@ AZURE_POSTGRES_PORT = os.getenv('AZURE_POSTGRES_PORT')
 AZURE_POSTGRES_DATABASE = os.getenv('AZURE_POSTGRES_DATABASE')
 
 app = Flask(__name__)
-
+# Local connection string
 local_conn_str = f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DATABASE}"
+# Production connection string
 prod_conn_str = f"postgresql://{AZURE_POSTGRES_USERNAME}:{AZURE_POSTGRES_PASSWORD}@{AZURE_POSTGRES_HOST}:{AZURE_POSTGRES_PORT}/{AZURE_POSTGRES_DATABASE}"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = prod_conn_str
