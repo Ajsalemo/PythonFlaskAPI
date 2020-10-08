@@ -87,7 +87,7 @@ def all_model_types():
 # Return all models based on the parameter passed
 @app.route('/api/v1/cars/models/<model>')
 def get_model(model):
-    specific_model = BMWCarModel.query.filter_by(Model=model).all()
+    specific_model = BMWCarModel.query.filter_by(Model=model.upper()).all()
     specific_model_array = [
         {
             "id": m.id,
