@@ -95,7 +95,7 @@ stages:
               azureSubscription: 'Ansalemo (4388fa06-bf66-4497-82c2-991ba75ecb97)'
               appType: 'webAppLinux'
               WebAppName: $(webAppName)
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'PYTHON|3.8'
               StartupCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
               ScriptType: 'Inline Script'
