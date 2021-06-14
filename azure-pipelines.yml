@@ -1,0 +1,105 @@
+# Python to Linux Web App on Azure
+# Build your Python project and deploy it to Azure as a Linux Web App.
+# Change python version to one thats appropriate for your application.
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- master
+
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: '37ab02a3-397a-4e93-a4fb-358d082aef4e'
+
+  # Web app name
+  webAppName: 'ansalemo-pythonflaskapi-devops'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Environment name
+  environmentName: 'ansalemo-pythonflaskapi-devops'
+
+  # Project root folder. Point to the folder containing manage.py file.
+  projectRoot: $(System.DefaultWorkingDirectory)
+
+  # Python version: 3.8
+  pythonVersion: '3.8'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildJob
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+
+    - script: |
+        python -m venv antenv
+        source antenv/bin/activate
+        python -m pip install --upgrade pip
+        pip install setup
+        pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+      displayName: "Install requirements"
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      displayName: 'Upload package'
+      artifact: drop
+
+- stage: Deploy
+  displayName: 'Deploy Web App'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - deployment: DeploymentJob
+    pool:
+      vmImage: $(vmImageName)
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - bash: |
+              echo 'Postgres port: $(MAPPED_AZURE_POSTGRES_PORT)'
+            env:
+              MAPPED_AZURE_POSTGRES_DATABASE: $(AZURE_POSTGRES_DATABASE_ENV)
+              MAPPED_AZURE_POSTGRES_HOST: $(AZURE_POSTGRES_HOST_ENV)
+              MAPPED_AZURE_POSTGRES_PASSWORD: $(AZURE_POSTGRES_PASSWORD_ENV)
+              MAPPED_AZURE_POSTGRES_PORT: $(AZURE_POSTGRES_PORT_ENV)
+              MAPPED_AZURE_POSTGRES_USERNAME: $(AZURE_POSTGRES_USERNAME_ENV)
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python version'
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Azure Web App : $(webAppName)'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Ansalemo (4388fa06-bf66-4497-82c2-991ba75ecb97)'
+              appType: 'webAppLinux'
+              WebAppName: $(webAppName)
+              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              RuntimeStack: 'PYTHON|3.8'
+              StartupCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
+              ScriptType: 'Inline Script'
+              InlineScript: |
+                flask db init
+                flask db migrate
+                flask db upgrade
