@@ -88,12 +88,3 @@ stages:
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'PYTHON|3.8'
               StartupCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
-              
-          - bash: |
-              echo 'Postgres port: $MAPPED_AZURE_POSTGRES_PORT'
-            env:
-              MAPPED_AZURE_POSTGRES_DATABASE: $(AZURE_POSTGRES_DATABASE_ENV)
-              MAPPED_AZURE_POSTGRES_HOST: $(AZURE_POSTGRES_HOST_ENV)
-              MAPPED_AZURE_POSTGRES_PASSWORD: $(AZURE_POSTGRES_PASSWORD_ENV)
-              MAPPED_AZURE_POSTGRES_PORT: $(AZURE_POSTGRES_PORT_ENV)
-              MAPPED_AZURE_POSTGRES_USERNAME: $(AZURE_POSTGRES_USERNAME_ENV)
