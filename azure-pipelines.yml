@@ -75,7 +75,7 @@ stages:
           steps:
 
           - bash: |
-              echo 'Postgres port: $(MAPPED_AZURE_POSTGRES_PORT)'
+              echo 'Postgres port: $MAPPED_AZURE_POSTGRES_PORT'
             env:
               MAPPED_AZURE_POSTGRES_DATABASE: $(AZURE_POSTGRES_DATABASE_ENV)
               MAPPED_AZURE_POSTGRES_HOST: $(AZURE_POSTGRES_HOST_ENV)
@@ -98,8 +98,3 @@ stages:
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'PYTHON|3.8'
               StartupCommand: 'gunicorn --bind=0.0.0.0 --timeout 600 app:app'
-              ScriptType: 'Inline Script'
-              InlineScript: |
-                flask db init
-                flask db migrate
-                flask db upgrade
